@@ -1,0 +1,311 @@
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+
+/* ALL PAGES */
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Abril Fatface", cursive;
+  font-size: 2rem;
+  line-height: 2em;
+}
+
+.hidden {
+  display: none !important;
+}
+
+body {
+  background: #e8cbc0; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #636fa4,
+    #e8cbc0
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #636fa4, #e8cbc0);
+}
+
+header {
+  height: 10rem;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+/* INTRODUCTION SCREEN */
+
+.intro-screen {
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+.home-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 80%;
+}
+
+.time-to-play {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 77%;
+  width: 35%;
+  background-image: url("./images/cat-button.png");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+}
+
+#start {
+  width: 5rem;
+  height: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/* YOU WIN SCREEN */
+.you-win-screen {
+  /* display: none; */
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid black;
+}
+
+.you-win-screen h1 {
+  display: flex;
+  justify-content: center;
+}
+
+.you-win-screen {
+  /* display: none; */
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.you-win-title h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.you-win-level-up {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 77%;
+  width: 35%;
+  background-image: url("./images/cat-happy.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  margin-bottom: 7rem;
+}
+
+#level-up {
+  width: 5rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
+/* GAME OVER SCREEN */
+
+.game-over-screen {
+  /* display: none; */
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-over-title h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.game-over-try-again {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 77%;
+  width: 35%;
+  background-image: url("./images/cat-reel-miaou.png");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  margin-bottom: 3rem;
+}
+
+#try-again {
+  width: 5rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
+/* LEVEL 1 GAME SCREEN */
+
+.level-one-screen {
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid black;
+}
+
+#score {
+  text-align: center;
+}
+
+#game {
+  width: 1200px;
+  height: 600px;
+  border: 1px solid black;
+  margin: auto;
+  background-image: url("./images/background-city-night.jpg");
+  background-size: contain;
+  background-repeat: repeat;
+  -webkit-animation: slide 20s linear infinite;
+  color: white;
+}
+
+@-webkit-keyframes slide {
+  from {
+    background-position: 400px 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}
+
+#cat {
+  height: 150px;
+  width: 150px;
+  position: relative;
+  top: 450px;
+  background-image: url("./images/cat-hangry.png");
+  background-size: cover;
+  transform: scaleX(-1);
+}
+
+.jump-animation {
+  animation: jump 1.5s;
+}
+
+@keyframes jump {
+  0% {
+    top: 450px;
+  }
+  40% {
+    top: 150px;
+  }
+  55% {
+    top: 150px;
+  }
+  60% {
+    top: 150px;
+  }
+  75% {
+    top: 150px;
+  }
+  100% {
+    top: 450px;
+  }
+}
+
+#dog {
+  height: 70px;
+  width: 100px;
+  position: relative;
+  top: 380px;
+  left: 110px;
+  background-image: url("./images/Dog2.png");
+  background-size: contain;
+  animation: dog 3s infinite;
+}
+
+@keyframes dog {
+  0% {
+    left: 1100px;
+  }
+  100% {
+    left: -100px;
+  }
+}
+
+#catfood {
+  height: 40px;
+  width: 50px;
+  position: relative;
+  top: 100px;
+  left: 75px;
+  background-image: url("./images/food-cat.png");
+  background-size: contain;
+  animation: catfood 2s infinite;
+}
+
+@keyframes catfood {
+  0% {
+    left: 1100px;
+  }
+  100% {
+    left: -10px;
+  }
+}
+
+/* LEVEL 2 GAME SCREEN */
+
+.level-two-screen {
+  /* display: none; */
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-board-level-two {
+  float: left;
+  padding: 20px 0px;
+}
+
+.game-intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-intro p {
+  font-size: 1rem;
+}
+
+#start-button-level-two {
+  width: 6rem;
+  height: 3rem;
+  font-size: 0.75rem;
+  align-items: center;
+  justify-content: center;
+}
+
+#running1 {
+  display: none;
+}

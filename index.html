@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cat Game</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js"></script>
+  </head>
+
+  <body>
+
+    <!-- AUDIO FILE -->
+        <!-- <audio autoplay loop id="music" class="hidden" src="./Images/music.mp3"></audio>
+        <audio id="audioLose" class="hidden" src="./Images/lose-sound.wav"></audio>
+        <audio id="audioWin" class="hidden" src="./Images/win-sound.wav"></audio> -->
+
+
+    <!---------------------------- INTRODUCTION SCREEN -->
+
+    <section class="intro-screen hidden">
+      <header>
+        <h1 class="title">Make the cat purr !</h1>
+      </header>
+      <section class="home-main">
+        <div class="time-to-play">
+          <button id="start">Start</button>
+        </div>
+      </section>
+    </section>
+
+    <!----------------------------  GAME OVER SCREEN -->
+
+    <section class="game-over-screen hidden">
+      <div class="game-over-title">
+        <h2>Game over !</h2>
+      </div>
+      <section class="game-over-try-again">
+        <div>
+          <button id="try-again">Try again</button>
+        </div>
+      </section>
+    </section>
+
+    <!----------------------------  YOU WIN SCREEN -->
+
+    <section class="you-win-screen hidden">
+      <div class="you-win-title">
+        <h2>The cat is happy ! You win !</h2>
+      </div>
+      <section class="you-win-level-up">
+        <div>
+          <button id="level-up">Level up</button>
+        </div>
+      </section>
+    </section>
+
+    <!----------------------------  LEVEL 1 GAME SCREEN -->
+
+    <section class="level-one-screen hidden">
+      <h2 id="score">0</h2>
+      <div id="game">
+        <div id="cat"></div>
+        <div id="dog"></div>
+        <div id="catfood"></div>
+      </div>
+    </section>
+
+    <!----------------------------  LEVEL 2 GAME SCREEN -->
+
+    <section class="level-two-screen">
+      <div class="game-intro">
+        <p>Use the left and right arrow to control the cat!</p>
+        <button id="start-button-level-two">Start the Game</button>
+      </div>
+      <h2 id="score-level-two">0</h2>
+        <div id="game-board-level-two">
+          <canvas id="canvas" width="1200" height="600"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!----------------------------  LEVEL 3 GAME SCREEN -->
+
+    
+  </body>
+</html>
