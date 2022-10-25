@@ -10,27 +10,28 @@
   <body>
 
     <!-- AUDIO FILE -->
-        <!-- <audio autoplay loop id="music" class="hidden" src="./Images/music.mp3"></audio>
-        <audio id="audioLose" class="hidden" src="./Images/lose-sound.wav"></audio>
-        <audio id="audioWin" class="hidden" src="./Images/win-sound.wav"></audio> -->
-
+        <!-- <audio autoplay loop id="miaou" class="hidden" src="./audios/angry-cat-meow-82091.mp3"></audio>
+        <audio id="audioLose" class="hidden" src="./audios/angry-cat-meow-82091.mp3"></audio>
+        <audio id="audioWin" class="hidden" src="./audios/cat-purr-meow-8327.mp3"></audio> 
+ -->
 
     <!---------------------------- INTRODUCTION SCREEN -->
 
-    <section class="intro-screen hidden">
+    <section id="intro-screen" class="intro-screen">
       <header>
         <h1 class="title">Make the cat purr !</h1>
       </header>
       <section class="home-main">
         <div class="time-to-play">
-          <button id="start">Start</button>
+          <button id="start-button-level-two">Start</button>
         </div>
       </section>
     </section>
 
-    <!----------------------------  GAME OVER SCREEN -->
+  
+  <!----------------------------  GAME OVER SCREEN -->
 
-    <section class="game-over-screen hidden">
+    <!-- <section id="game-over-screen" class="hidden">
       <div class="game-over-title">
         <h2>Game over !</h2>
       </div>
@@ -39,11 +40,11 @@
           <button id="try-again">Try again</button>
         </div>
       </section>
-    </section>
+    </section> -->
 
     <!----------------------------  YOU WIN SCREEN -->
 
-    <section class="you-win-screen hidden">
+    <!-- <section class="you-win-screen hidden">
       <div class="you-win-title">
         <h2>The cat is happy ! You win !</h2>
       </div>
@@ -51,13 +52,13 @@
         <div>
           <button id="level-up">Level up</button>
         </div>
-      </section>
-    </section>
+      </section>’
+    </section> -->
 
     <!----------------------------  LEVEL 1 GAME SCREEN -->
 
     <section class="level-one-screen hidden">
-      <h2 id="score">0</h2>
+      <h2><span id="score">0</span></h2>
       <div id="game">
         <div id="cat"></div>
         <div id="dog"></div>
@@ -67,16 +68,80 @@
 
     <!----------------------------  LEVEL 2 GAME SCREEN -->
 
-    <section class="level-two-screen">
+    <section id="level-two-screen" class="">
       <div class="game-intro">
-        <p>Use the left and right arrow to control the cat!</p>
-        <button id="start-button-level-two">Start the Game</button>
+        <p>Use the arrows to control the cat!</p>
+        <!-- <button id="start-button-level-two">Start the Game</button> -->
+        <h2><span id="score-level-two">0</span></h2>
+        <!---- LOADING DOG IMAGES -->
+        <img id="dog1" class="hidden" src="./images/dog-run-1.png">
+        <img id="dog2" class="hidden" src="./images/dog-run-2.png">
+        <img id="dog3" class="hidden" src="./images/dog-run-3.png">
+        <img id="dog4" class="hidden" src="./images/dog-run-4.png">
+        <img id="dog5" class="hidden" src="./images/dog-run-5.png">
+        <img id="dog6" class="hidden" src="./images/dog-run-6.png">
+        <img id="dog7" class="hidden" src="./images/dog-run-7.png">
+        <img id="dog8" class="hidden" src="./images/dog-run-8.png">
+        <img id="dog9" class="hidden" src="./images/dog-run-9.png">
+        <img id="dog10" class="hidden" src="./images/dog-run-10.png">
+        <img id="dog11" class="hidden" src="./images/dog-run-11.png">
+        <img id="dog12" class="hidden" src="./images/dog-run-12.png">
+        <img id="dog13" class="hidden" src="./images/dog-run-13.png">
+        <img id="dog14" class="hidden" src="./images/dog-run-14.png">
+        <img id="dog15" class="hidden" src="./images/dog-run-15.png">
+        <img id="dog16" class="hidden" src="./images/dog-run-16.png">
+        <img id="dog17" class="hidden" src="./images/dog-run-17.png">
+        <img id="dog18" class="hidden" src="./images/dog-run-18.png">
+        <img id="dog19" class="hidden" src="./images/dog-run-19.png">
+        <img id="dog20" class="hidden" src="./images/dog-run-20.png">
+        <img id="dog21" class="hidden" src="./images/dog-run-21.png">
+        <!---- LOADING BUG IMAGES -->
+        <img id="bug0" class="hidden" src="./images/skeleton-animation_0.png">
+        <img id="bug1" class="hidden" src="./images/skeleton-animation_1.png">
+        <img id="bug2" class="hidden" src="./images/skeleton-animation_2.png">
+        <img id="bug3" class="hidden" src="./images/skeleton-animation_3.png">
+        <img id="bug4" class="hidden" src="./images/skeleton-animation_4.png">
+        <img id="bug5" class="hidden" src="./images/skeleton-animation_5.png">
+        <img id="bug6" class="hidden" src="./images/skeleton-animation_6.png">
+        <img id="bug7" class="hidden" src="./images/skeleton-animation_7.png">
+        <img id="bug8" class="hidden" src="./images/skeleton-animation_8.png">
+        <img id="bug9" class="hidden" src="./images/skeleton-animation_9.png">
+        <img id="bug10" class="hidden" src="./images/skeleton-animation_10.png">
+        <img id="bug11" class="hidden" src="./images/skeleton-animation_11.png">
+        <img id="bug12" class="hidden" src="./images/skeleton-animation_12.png">
+        <img id="bug13" class="hidden" src="./images/skeleton-animation_13.png">
+        <img id="bug14" class="hidden" src="./images/skeleton-animation_14.png">
+
       </div>
-      <h2 id="score-level-two">0</h2>
-        <div id="game-board-level-two">
+      
+      <div id="game-board-level-two">
           <canvas id="canvas" width="1200" height="600"></canvas>
         </div>
       </div>
+      
+      <!-- <div class="class-game-over-alert"> -->
+      <dialog id="game-over-alert">
+        <div id="div-game-over-alert"> 
+        <h2>Game over !</h2> 
+        <div id="button-try-again">
+        <button id="try-again-button">Try again</button>
+        </div>
+        </div> 
+      </dialog>
+      <!-- </div> -->
+
+
+      <!-- The Modal
+      <div id="myModal" class="modal">
+
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>Some text in the Modal..</p>
+        </div> -->
+
+      <!-- </div> -->
+
+
     </section>
 
     <!----------------------------  LEVEL 3 GAME SCREEN -->

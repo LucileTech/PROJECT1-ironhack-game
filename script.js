@@ -1,7 +1,6 @@
-const cat = document.getElementById("cat");
-const dog = document.getElementById("dog");
-const score = document.getElementById("score");
-// const gameOverScreen = document.getElementsByClassName("game-over-screen");
+// const cat = document.getElementById("cat");
+// const dog = document.getElementById("dog");
+
 /* INTRODUCTION SCREEN */
 
 // startButton.addEventListener("click", startGame);
@@ -46,8 +45,47 @@ const score = document.getElementById("score");
 
 /* LEVEL 2 GAME SCREEN */
 
+//////LES CONST
+
+//AUDIO
+const gameOverSound = new Audio("./audios/angry-cat-meow-82091.mp3");
+//ajouter un son angryCatcrache
+const youWinSound = new Audio("./audios/cat-purr-meow-8327.mp3");
+const purrSound = new Audio("./audios/cat-purring-68797.mp3");
+
+//TIMER & SCORE
+const score = document.getElementById("score-level-two");
+const timer = document.getElementById("timer-level-two");
+
+// let counter = 0;
+// setInterval(() => {
+//   counter += 1;
+//   timer.innerText = counter;
+// }, 50);
+
+function timerFunction() {
+  counter++;
+  if (counter > 1000) stopGame();
+  else {
+    timer.innerHTML = counter;
+  }
+}
+
+//DIFFERENTSCREENS
+let gameOverScreen = document.getElementById("game-over-screen");
+let levelTwoScreen = document.getElementById("level-two-screen");
+let introScreen = document.getElementById("intro-screen");
+
 window.onload = () => {
+  // document.getElementById("level-two-screen").remove();
+  document.getElementById("level-two-screen").style.display = "none";
   document.getElementById("start-button-level-two").onclick = () => {
+    document.getElementById("intro-screen").style.display = "none";
+    document.getElementById("level-two-screen").style.display = "flex";
+
+    // levelTwoScreen.style.display = "block";
+    // document.getElementById("intro-screen").remove();
+    // document.getElementById("level-two-screen").add();
     const game = new Game();
     game.startGame();
   };
@@ -71,8 +109,23 @@ function loadImages() {
   }
 }
 
+// const runningDog = [];
+// function loadImages() {
+//   for (key in numOfImgs) {
+//     for (let i = 1; i <= running[key]; i++) {
+//       let cached = new Image();
+//       cached.src = `./catsprite/${key}${i}.png`;
+
+//       if (key === "running") {
+//         runningImages.push(cached);
+//       } else {
+//         jumpingImages.push(cached);
+//       }
+//     }
+//   }
+// }
+
 loadImages();
-console.log(runningImages, jumpingImages);
 const catJump = [];
 // let frames = 0;
 let maxFrames = 26;
@@ -170,10 +223,7 @@ class Sky {
   }
 }
 
-// for (let i = 0; i < 22; i++) {
-//   let img = new Image();
-//   img.src = `./catsprite/running${i}.png`;
-// }
+Math.floor(Math.random() * (200 - 150) + 150);
 
 class Game {
   constructor() {
@@ -185,6 +235,8 @@ class Game {
     this.cat = new Cat(this.canvas, this.ctx);
     this.frames = 0;
     this.dogs = [];
+    this.bugs = [];
+    this.levelCount = 1;
   }
   init() {
     this.canvas = document.getElementById("canvas");
@@ -195,40 +247,77 @@ class Game {
     this.intervalId = setInterval(() => {
       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.frames++;
-      if (this.frames % 120 === 0) {
+
+      //DOGS & BUGS APPEAR
+      if (this.frames % 250 === 0) {
         this.dogs.push(new Dog(this.canvas, this.ctx));
+        this.bugs.push(new Bug(this.canvas, this.ctx));
       }
+
+      this.dogs.forEach((dog) => {
+        dog.image = document.getElementById(`dog${(this.frames % 21) + 1}`);
+      });
+
+      this.bugs.forEach((bug) => {
+        bug.image = document.getElementById(`bug${this.frames % 14}`);
+        console.log(this.bugs[0].image.src);
+      });
+
+      //CAT RUN & JUMPS
       if (this.cat.state === "running") {
         this.cat.image = runningImages[this.frames % 26];
       } else {
         this.cat.image = jumpingImages[this.frames % 26];
       }
 
-      //   document.getElementById(
-      //     `${this.cat.state}${(this.frames % 26) + 1}`
-      //   ).src;
-
-      //
-      console.log();
       this.sky.draw();
       this.sky.move();
       this.cat.draw();
 
-      //add jump//
-
+      //ADD CAT JUMP//
       if (this.cat.isJumping) {
         this.frames %= maxFrames;
         this.cat.jump(this.cat.jumpAmount);
       }
 
-      //end add jump//
+      //DOG MOVE BUG MOVE AND END OF THE GAME//
+
+      const dialogGameOver = document.getElementById("game-over-alert");
+      // if LEVEL 2 // (this.levelCount === 1)
       for (const dog of this.dogs) {
         dog.draw();
         if (this.checkCollision(dog, this.cat)) {
           this.stopGame();
+          gameOverSound.play();
+          dialogGameOver.showModal();
         }
         dog.move();
       }
+
+      // TRY AGAIN
+
+      document.getElementById("try-again-button").onclick = () => {
+        const game = new Game();
+        game.startGame();
+        dialogGameOver.close();
+      };
+
+      // IF LEVEL 2 // if (this.levelCount === 2)
+
+      for (const bug of this.bugs) {
+        bug.draw();
+        let counter = 0;
+        if (this.checkEatBug(bug, this.cat)) {
+          counter++;
+          score.innerText = counter;
+          console.log(counter);
+        }
+        bug.move();
+      }
+
+      // IF LEVEL 2 ///  if (this.frames === 1200) {
+      //   this.changeLevel();
+      // }
     }, 1000 / 60);
   }
 
@@ -237,12 +326,34 @@ class Game {
     // gameOverScreen.classList.remove(hidden);
   }
 
+  //  IF LEVEL 2 ///  changeLevel() {
+  //   this.frames = 0;
+  //   this.game;
+  //   this.cat.x = 50;
+  //   this.cat.y = this.canvas.height - 160;
+  //   this.dogs = [];
+  //   this.bugs = [];
+  //   this.levelCount++;
+  // }
+
   checkCollision(dog, cat) {
     const isInX =
-      dog.rightEdge() >= cat.leftEdge() && dog.leftEdge() <= cat.rightEdge();
+      dog.rightEdge() - 10 >= cat.leftEdge() + 10 &&
+      dog.leftEdge() + 10 <= cat.rightEdge() - 10;
     const isInY =
-      dog.topEdge() <= cat.bottomEdge() && dog.bottomEdge() >= cat.topEdge();
+      dog.topEdge() + 10 <= cat.bottomEdge() - 10 &&
+      dog.bottomEdge() - 10 >= cat.topEdge() + 10;
     return isInX && isInY;
+    // document.getElementById("audioLose").play();
+  }
+
+  checkEatBug(bug, cat) {
+    const isInX =
+      bug.rightEdge() >= cat.leftEdge() && bug.leftEdge() <= cat.rightEdge();
+    const isInY =
+      bug.topEdge() <= cat.bottomEdge() && bug.bottomEdge() >= cat.topEdge();
+    return isInX && isInY;
+    // document.getElementById("audioLose").play();
   }
 
   createEventListeners() {
@@ -297,14 +408,45 @@ class Dog {
     return this.y;
   }
   draw() {
-    // if (image.complete) {
-    //   this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-    // } else {
-    //   this.ctx.fillRect(this.x, this.y, this.width, this.height); // image placeholder
-    // }
-    this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    this.ctx.scale(-1, 1);
+    this.ctx.drawImage(this.image, -this.x, this.y, -this.width, this.height);
+    this.ctx.scale(-1, 1);
   }
   move() {
-    this.x -= 4;
+    this.x -= 10;
+  }
+}
+
+class Bug {
+  constructor(canvas, ctx) {
+    this.image = new Image();
+    this.image.src = "./images/skeleton-animation_0.png";
+    this.ctx = ctx;
+    this.canvas = canvas;
+    this.x = this.canvas.width;
+    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
+    this.y = this.canvas.height - 400;
+    this.width = 50;
+    this.height = 50;
+  }
+  bottomEdge() {
+    return this.y + this.height;
+  }
+  leftEdge() {
+    return this.x;
+  }
+  rightEdge() {
+    return this.x + this.width;
+  }
+  topEdge() {
+    return this.y;
+  }
+  draw() {
+    this.ctx.scale(-1, 1);
+    this.ctx.drawImage(this.image, -this.x, this.y, -this.width, this.height);
+    this.ctx.scale(-1, 1);
+  }
+  move() {
+    this.x -= 18;
   }
 }

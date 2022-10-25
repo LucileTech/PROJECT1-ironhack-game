@@ -2,12 +2,15 @@
 
 /* ALL PAGES */
 
-* {
+*:not(dialog) {
   padding: 0;
   margin: 0;
   font-family: "Abril Fatface", cursive;
   font-size: 2rem;
   line-height: 2em;
+}
+dialog::backdrop {
+  backdrop-filter: blur(4px);
 }
 
 .hidden {
@@ -73,94 +76,13 @@ header {
   align-items: center;
 }
 
-/* YOU WIN SCREEN */
-.you-win-screen {
-  /* display: none; */
-  width: 100vw;
-  height: 100vh;
-  border: 1px solid black;
-}
 
-.you-win-screen h1 {
-  display: flex;
-  justify-content: center;
-}
-
-.you-win-screen {
-  /* display: none; */
-  width: 100vw;
-  height: 100vh;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.you-win-title h2 {
-  display: flex;
-  justify-content: center;
-}
-
-.you-win-level-up {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 77%;
-  width: 35%;
-  background-image: url("./images/cat-happy.png");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  color: white;
-  margin-bottom: 7rem;
-}
-
-#level-up {
-  width: 5rem;
-  height: 2rem;
-  font-size: 1rem;
-}
-
-/* GAME OVER SCREEN */
-
-.game-over-screen {
-  /* display: none; */
-  width: 100vw;
-  height: 100vh;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.game-over-title h2 {
-  display: flex;
-  justify-content: center;
-}
-
-.game-over-try-again {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 77%;
-  width: 35%;
-  background-image: url("./images/cat-reel-miaou.png");
-  background-size: 50%;
-  background-repeat: no-repeat;
-  background-position: center;
-  color: white;
-  margin-bottom: 3rem;
-}
-
-#try-again {
-  width: 5rem;
-  height: 2rem;
-  font-size: 1rem;
-}
 
 /* LEVEL 1 GAME SCREEN */
+
+#game-board-level-two {
+  border: 1px solid black;
+}
 
 .level-one-screen {
   width: 100vw;
@@ -271,7 +193,7 @@ header {
 
 /* LEVEL 2 GAME SCREEN */
 
-.level-two-screen {
+#level-two-screen {
   /* display: none; */
   width: 100vw;
   height: 100vh;
@@ -280,11 +202,16 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 #game-board-level-two {
   float: left;
   padding: 20px 0px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .game-intro {
@@ -298,14 +225,159 @@ header {
   font-size: 1rem;
 }
 
+/* .game-intro h2 {
+  background-image: url("./images/catfootprint.png");
+  background-size: cover;
+  width: 2rem;
+  height: 2rem;
+} */
+
 #start-button-level-two {
   width: 6rem;
   height: 3rem;
   font-size: 0.75rem;
   align-items: center;
   justify-content: center;
+  color: white;
+  background-color: black;
 }
 
 #running1 {
   display: none;
 }
+
+/* GAME OVER */
+
+#div-game-over-alert {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60vw;
+  height: 40vh;
+  background-image: url("./images/cat-reel-miaou.png");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+#game-over-alert h2 {
+  color: white;
+  padding: 0;
+  font-size: 0.75rem;
+}
+
+#button-try-again button {
+  width: 5rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
+/* #game-over-alert {
+  width: 20vw;
+  height: 20vh;
+  border: 1px solid black;
+} */
+
+/* #game-over-alert {
+  width: 50vw;
+  height: 50vh;
+}
+
+#section-game-over-alert {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} */
+
+
+/* YOU WIN SCREEN */
+.you-win-screen {
+  /* display: none; */
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid black;
+}
+
+.you-win-screen h1 {
+  display: flex;
+  justify-content: center;
+}
+
+.you-win-screen {
+  /* display: none; */
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.you-win-title h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.you-win-level-up {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 77%;
+  width: 35%;
+  background-image: url("./images/cat-happy.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  margin-bottom: 7rem;
+}
+
+#level-up {
+  width: 5rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
+/* GAME OVER SCREEN */
+
+.game-over-screen {
+  /* display: none; */
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-over-title h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.game-over-try-again {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 77%;
+  width: 35%;
+  background-image: url("./images/cat-reel-miaou.png");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  margin-bottom: 3rem;
+}
+
+#try-again {
+  width: 5rem;
+  height: 2rem;
+  font-size: 1rem;
+} */
