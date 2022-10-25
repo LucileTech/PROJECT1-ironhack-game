@@ -1,105 +1,49 @@
-// const cat = document.getElementById("cat");
-// const dog = document.getElementById("dog");
-
-/* INTRODUCTION SCREEN */
-
-// startButton.addEventListener("click", startGame);
-
-// function startGame() {
-//   // hiddenIntro.classList.add("hidden");
-// }
-
-/* LEVEL 1 GAME SCREEN */
-
-// function jump() {
-//   cat.classList.add("jump-animation");
-//   setTimeout(() => {
-//     cat.classList.remove("jump-animation");
-//   }, 500);
-// }
-
-// document.addEventListener("keypress", () => {
-//   if (!cat.classList.contains("jump-animation")) {
-//     jump();
-//   }
-// });
-
-// setInterval(() => {
-//   score.innerText++;
-//   const catTop = parseInt(window.getComputedStyle(cat).getPropertyValue("top"));
-//   const dogLeft = parseInt(
-//     window.getComputedStyle(dog).getPropertyValue("left")
-//   );
-//   console.log(dogLeft);
-//   if (dogLeft < 0) {
-//     dog.style.display = "none";
-//   } else {
-//     dog.style.display = "";
-//   }
-
-//   // if (dogLeft < 50 && dogLeft > 0 && catTop > 150) {
-//   //   // alert("You got a score of: " + score.innerText + "Play again ?");
-//   //   // location.reload();
-//   // }
-// }, 50);
-
-/* LEVEL 2 GAME SCREEN */
-
-//////LES CONST
-
+//////VARIABLES
 //AUDIO
 const gameOverSound = new Audio("./audios/angry-cat-meow-82091.mp3");
 //ajouter un son angryCatcrache
 const youWinSound = new Audio("./audios/cat-purr-meow-8327.mp3");
 const purrSound = new Audio("./audios/cat-purring-68797.mp3");
-
 //TIMER & SCORE
 const score = document.getElementById("score-level-two");
 const timer = document.getElementById("timer-level-two");
+//ANIMATIONS
+const runningImages = [];
+const jumpingImages = [];
+const catJump = [];
+let maxFrames = 26;
 
+/////FONCTIONS
+/// TIME FUNCTIONS TRY ///
 // let counter = 0;
 // setInterval(() => {
 //   counter += 1;
 //   timer.innerText = counter;
 // }, 50);
 
-function timerFunction() {
-  counter++;
-  if (counter > 1000) stopGame();
-  else {
-    timer.innerHTML = counter;
-  }
-}
-
-//DIFFERENTSCREENS
-let gameOverScreen = document.getElementById("game-over-screen");
-let levelTwoScreen = document.getElementById("level-two-screen");
-let introScreen = document.getElementById("intro-screen");
+// function timerFunction() {
+//   counter++;
+//   if (counter > 1000) stopGame();
+//   else {
+//     timer.innerHTML = counter;
+//   }
+// }
 
 window.onload = () => {
-  // document.getElementById("level-two-screen").remove();
   document.getElementById("level-two-screen").style.display = "none";
   document.getElementById("start-button-level-two").onclick = () => {
     document.getElementById("intro-screen").style.display = "none";
     document.getElementById("level-two-screen").style.display = "flex";
-
-    // levelTwoScreen.style.display = "block";
-    // document.getElementById("intro-screen").remove();
-    // document.getElementById("level-two-screen").add();
     const game = new Game();
     game.startGame();
   };
 };
-const runningImages = [];
-const jumpingImages = [];
 function loadImages() {
   const numOfImgs = { running: 26, jumping: 26 };
-
   for (key in numOfImgs) {
     for (let i = 1; i <= numOfImgs[key]; i++) {
       let cached = new Image();
       cached.src = `./catsprite/${key}${i}.png`;
-
       if (key === "running") {
         runningImages.push(cached);
       } else {
@@ -108,28 +52,7 @@ function loadImages() {
     }
   }
 }
-
-// const runningDog = [];
-// function loadImages() {
-//   for (key in numOfImgs) {
-//     for (let i = 1; i <= running[key]; i++) {
-//       let cached = new Image();
-//       cached.src = `./catsprite/${key}${i}.png`;
-
-//       if (key === "running") {
-//         runningImages.push(cached);
-//       } else {
-//         jumpingImages.push(cached);
-//       }
-//     }
-//   }
-// }
-
 loadImages();
-const catJump = [];
-// let frames = 0;
-let maxFrames = 26;
-// image.src = character[frames];
 
 class Cat {
   constructor(canvas, ctx) {
@@ -223,8 +146,6 @@ class Sky {
   }
 }
 
-Math.floor(Math.random() * (200 - 150) + 150);
-
 class Game {
   constructor() {
     this.canvas = null;
@@ -245,45 +166,40 @@ class Game {
   }
   startGame() {
     this.intervalId = setInterval(() => {
+      //GAME OVER MODAL
+      const dialogGameOver = document.getElementById("game-over-alert");
+      //YOU WIN MODAL A AJOUTER
       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.frames++;
-
       //DOGS & BUGS APPEAR
       if (this.frames % 250 === 0) {
         this.dogs.push(new Dog(this.canvas, this.ctx));
         this.bugs.push(new Bug(this.canvas, this.ctx));
       }
-
       this.dogs.forEach((dog) => {
         dog.image = document.getElementById(`dog${(this.frames % 21) + 1}`);
       });
-
       this.bugs.forEach((bug) => {
         bug.image = document.getElementById(`bug${this.frames % 14}`);
         console.log(this.bugs[0].image.src);
       });
-
       //CAT RUN & JUMPS
       if (this.cat.state === "running") {
         this.cat.image = runningImages[this.frames % 26];
       } else {
         this.cat.image = jumpingImages[this.frames % 26];
       }
-
+      //CAT AND BACKGROUND APPEARANCE
       this.sky.draw();
       this.sky.move();
       this.cat.draw();
-
-      //ADD CAT JUMP//
+      //ADD CAT JUMP
       if (this.cat.isJumping) {
         this.frames %= maxFrames;
         this.cat.jump(this.cat.jumpAmount);
       }
-
-      //DOG MOVE BUG MOVE AND END OF THE GAME//
-
-      const dialogGameOver = document.getElementById("game-over-alert");
-      // if LEVEL 2 // (this.levelCount === 1)
+      ////////////// if LEVEL 2 // (this.levelCount === 1)
+      //DOG APPEARANCE AND GAME OVER
       for (const dog of this.dogs) {
         dog.draw();
         if (this.checkCollision(dog, this.cat)) {
@@ -293,17 +209,14 @@ class Game {
         }
         dog.move();
       }
-
       // TRY AGAIN
-
       document.getElementById("try-again-button").onclick = () => {
         const game = new Game();
         game.startGame();
         dialogGameOver.close();
       };
-
-      // IF LEVEL 2 // if (this.levelCount === 2)
-
+      ////////// IF LEVEL 2 // if (this.levelCount === 2)
+      //DUG COUNTER A IMPLEMENTER
       for (const bug of this.bugs) {
         bug.draw();
         let counter = 0;
@@ -314,28 +227,14 @@ class Game {
         }
         bug.move();
       }
-
-      // IF LEVEL 2 ///  if (this.frames === 1200) {
+      /////////// IF LEVEL 2 ///  if (this.frames === 1200) {
       //   this.changeLevel();
       // }
     }, 1000 / 60);
   }
-
   stopGame() {
     clearInterval(this.intervalId);
-    // gameOverScreen.classList.remove(hidden);
   }
-
-  //  IF LEVEL 2 ///  changeLevel() {
-  //   this.frames = 0;
-  //   this.game;
-  //   this.cat.x = 50;
-  //   this.cat.y = this.canvas.height - 160;
-  //   this.dogs = [];
-  //   this.bugs = [];
-  //   this.levelCount++;
-  // }
-
   checkCollision(dog, cat) {
     const isInX =
       dog.rightEdge() - 10 >= cat.leftEdge() + 10 &&
@@ -346,7 +245,6 @@ class Game {
     return isInX && isInY;
     // document.getElementById("audioLose").play();
   }
-
   checkEatBug(bug, cat) {
     const isInX =
       bug.rightEdge() >= cat.leftEdge() && bug.leftEdge() <= cat.rightEdge();
@@ -355,7 +253,6 @@ class Game {
     return isInX && isInY;
     // document.getElementById("audioLose").play();
   }
-
   createEventListeners() {
     document.addEventListener("keydown", (event) => {
       // console.log(event.key)
@@ -381,6 +278,15 @@ class Game {
       }
     });
   }
+  //////////////////  IF LEVEL 2 ///  changeLevel() {
+  //   this.frames = 0;
+  //   this.game;
+  //   this.cat.x = 50;
+  //   this.cat.y = this.canvas.height - 160;
+  //   this.dogs = [];
+  //   this.bugs = [];
+  //   this.levelCount++;
+  // }
 }
 
 class Dog {
