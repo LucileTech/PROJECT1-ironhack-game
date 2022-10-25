@@ -31,6 +31,7 @@ let maxFrames = 26;
 
 window.onload = () => {
   document.getElementById("level-two-screen").style.display = "none";
+
   document.getElementById("start-button-level-two").onclick = () => {
     document.getElementById("intro-screen").style.display = "none";
     document.getElementById("level-two-screen").style.display = "flex";
@@ -38,6 +39,7 @@ window.onload = () => {
     game.startGame();
   };
 };
+
 function loadImages() {
   const numOfImgs = { running: 26, jumping: 26 };
   for (key in numOfImgs) {
@@ -54,6 +56,7 @@ function loadImages() {
 }
 loadImages();
 
+///CLASS - cat - background - dog - bug - game
 class Cat {
   constructor(canvas, ctx) {
     this.canvas = canvas;
@@ -143,6 +146,74 @@ class Sky {
       this.width,
       this.height
     );
+  }
+}
+
+class Dog {
+  constructor(canvas, ctx) {
+    this.image = new Image();
+    this.image.src = "./images/dog3.png";
+    this.ctx = ctx;
+    this.canvas = canvas;
+    this.x = this.canvas.width;
+    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
+    this.y = this.canvas.height - 100;
+    this.width = 100;
+    this.height = 100;
+  }
+  bottomEdge() {
+    return this.y + this.height;
+  }
+  leftEdge() {
+    return this.x;
+  }
+  rightEdge() {
+    return this.x + this.width;
+  }
+  topEdge() {
+    return this.y;
+  }
+  draw() {
+    this.ctx.scale(-1, 1);
+    this.ctx.drawImage(this.image, -this.x, this.y, -this.width, this.height);
+    this.ctx.scale(-1, 1);
+  }
+  move() {
+    this.x -= 10;
+  }
+}
+
+class Bug {
+  constructor(canvas, ctx) {
+    this.image = new Image();
+    this.image.src = "./images/skeleton-animation_0.png";
+    this.ctx = ctx;
+    this.canvas = canvas;
+    this.x = this.canvas.width;
+    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
+    this.y = this.canvas.height - 400;
+    this.width = 50;
+    this.height = 50;
+  }
+  bottomEdge() {
+    return this.y + this.height;
+  }
+  leftEdge() {
+    return this.x;
+  }
+  rightEdge() {
+    return this.x + this.width;
+  }
+  topEdge() {
+    return this.y;
+  }
+  draw() {
+    this.ctx.scale(-1, 1);
+    this.ctx.drawImage(this.image, -this.x, this.y, -this.width, this.height);
+    this.ctx.scale(-1, 1);
+  }
+  move() {
+    this.x -= 18;
   }
 }
 
@@ -287,72 +358,4 @@ class Game {
   //   this.bugs = [];
   //   this.levelCount++;
   // }
-}
-
-class Dog {
-  constructor(canvas, ctx) {
-    this.image = new Image();
-    this.image.src = "./images/dog3.png";
-    this.ctx = ctx;
-    this.canvas = canvas;
-    this.x = this.canvas.width;
-    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
-    this.y = this.canvas.height - 100;
-    this.width = 100;
-    this.height = 100;
-  }
-  bottomEdge() {
-    return this.y + this.height;
-  }
-  leftEdge() {
-    return this.x;
-  }
-  rightEdge() {
-    return this.x + this.width;
-  }
-  topEdge() {
-    return this.y;
-  }
-  draw() {
-    this.ctx.scale(-1, 1);
-    this.ctx.drawImage(this.image, -this.x, this.y, -this.width, this.height);
-    this.ctx.scale(-1, 1);
-  }
-  move() {
-    this.x -= 10;
-  }
-}
-
-class Bug {
-  constructor(canvas, ctx) {
-    this.image = new Image();
-    this.image.src = "./images/skeleton-animation_0.png";
-    this.ctx = ctx;
-    this.canvas = canvas;
-    this.x = this.canvas.width;
-    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
-    this.y = this.canvas.height - 400;
-    this.width = 50;
-    this.height = 50;
-  }
-  bottomEdge() {
-    return this.y + this.height;
-  }
-  leftEdge() {
-    return this.x;
-  }
-  rightEdge() {
-    return this.x + this.width;
-  }
-  topEdge() {
-    return this.y;
-  }
-  draw() {
-    this.ctx.scale(-1, 1);
-    this.ctx.drawImage(this.image, -this.x, this.y, -this.width, this.height);
-    this.ctx.scale(-1, 1);
-  }
-  move() {
-    this.x -= 18;
-  }
 }
