@@ -28,7 +28,7 @@ body {
 }
 
 header {
-  height: 10rem;
+  height: 5rem;
 }
 
 .title {
@@ -76,142 +76,19 @@ header {
   align-items: center;
 }
 
+/*       LEVEL 2 GAME SCREEN */
 
+/* LEFT EXPLANATIONS */
 
-/* LEVEL 1 GAME SCREEN */
-
-#game-board-level-two {
-  border: 1px solid black;
-}
-
-.level-one-screen {
-  width: 100vw;
-  height: 100vh;
-  border: 1px solid black;
-}
-
-#score {
-  text-align: center;
-}
-
-#game {
-  width: 1200px;
-  height: 600px;
-  border: 1px solid black;
-  margin: auto;
-  background-image: url("./images/background-city-night.jpg");
-  background-size: contain;
-  background-repeat: repeat;
-  -webkit-animation: slide 20s linear infinite;
-  color: white;
-}
-
-@-webkit-keyframes slide {
-  from {
-    background-position: 400px 0;
-  }
-
-  to {
-    background-position: 0 0;
-  }
-}
-
-#cat {
-  height: 150px;
-  width: 150px;
-  position: relative;
-  top: 450px;
-  background-image: url("./images/cat-hangry.png");
-  background-size: cover;
-  transform: scaleX(-1);
-}
-
-.jump-animation {
-  animation: jump 1.5s;
-}
-
-@keyframes jump {
-  0% {
-    top: 450px;
-  }
-  40% {
-    top: 150px;
-  }
-  55% {
-    top: 150px;
-  }
-  60% {
-    top: 150px;
-  }
-  75% {
-    top: 150px;
-  }
-  100% {
-    top: 450px;
-  }
-}
-
-#dog {
-  height: 70px;
-  width: 100px;
-  position: relative;
-  top: 380px;
-  left: 110px;
-  background-image: url("./images/Dog2.png");
-  background-size: contain;
-  animation: dog 3s infinite;
-}
-
-@keyframes dog {
-  0% {
-    left: 1100px;
-  }
-  100% {
-    left: -100px;
-  }
-}
-
-#catfood {
-  height: 40px;
-  width: 50px;
-  position: relative;
-  top: 100px;
-  left: 75px;
-  background-image: url("./images/food-cat.png");
-  background-size: contain;
-  animation: catfood 2s infinite;
-}
-
-@keyframes catfood {
-  0% {
-    left: 1100px;
-  }
-  100% {
-    left: -10px;
-  }
-}
-
-/* LEVEL 2 GAME SCREEN */
-
-#level-two-screen {
-  /* display: none; */
+#level-one-screen {
   width: 100vw;
   height: 100vh;
   border: 1px solid black;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-}
-
-#game-board-level-two {
-  float: left;
-  padding: 20px 0px;
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .game-intro {
@@ -225,14 +102,42 @@ header {
   font-size: 1rem;
 }
 
-/* .game-intro h2 {
-  background-image: url("./images/catfootprint.png");
-  background-size: cover;
-  width: 2rem;
-  height: 2rem;
-} */
+#keyboard-arrows {
+  width: 10rem;
+  height: 10rem;
+  background-image: url("./images/arrows-keyboard.png");
+  background-size: contain;
+}
 
-#start-button-level-two {
+/* MIDDLE CANVAS */
+
+#game-board-level-one {
+  float: left;
+  padding: 20px 0px;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  background-color: #636fa4;
+}
+
+/* RIGHT SCORE AND TIME */
+
+.score-and-timer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.score-and-timer h2 {
+  font-size: 1rem;
+}
+
+#start-button-level-one {
   width: 6rem;
   height: 3rem;
   font-size: 0.75rem;
@@ -246,7 +151,7 @@ header {
   display: none;
 }
 
-/* GAME OVER */
+/* GAME OVER MODAL */
 
 #div-game-over-alert {
   position: relative;
@@ -275,109 +180,31 @@ header {
   font-size: 1rem;
 }
 
-/* #game-over-alert {
-  width: 20vw;
-  height: 20vh;
-  border: 1px solid black;
-} */
+/* YOU WIN MODAL */
 
-/* #game-over-alert {
-  width: 50vw;
-  height: 50vh;
-}
-
-#section-game-over-alert {
+#div-you-win-alert {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-} */
-
-
-/* YOU WIN SCREEN */
-.you-win-screen {
-  /* display: none; */
-  width: 100vw;
-  height: 100vh;
-  border: 1px solid black;
-}
-
-.you-win-screen h1 {
-  display: flex;
-  justify-content: center;
-}
-
-.you-win-screen {
-  /* display: none; */
-  width: 100vw;
-  height: 100vh;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.you-win-title h2 {
-  display: flex;
-  justify-content: center;
-}
-
-.you-win-level-up {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 77%;
-  width: 35%;
+  width: 60vw;
+  height: 40vh;
   background-image: url("./images/cat-happy.png");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  color: white;
-  margin-bottom: 7rem;
-}
-
-#level-up {
-  width: 5rem;
-  height: 2rem;
-  font-size: 1rem;
-}
-
-/* GAME OVER SCREEN */
-
-.game-over-screen {
-  /* display: none; */
-  width: 100vw;
-  height: 100vh;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.game-over-title h2 {
-  display: flex;
-  justify-content: center;
-}
-
-.game-over-try-again {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 77%;
-  width: 35%;
-  background-image: url("./images/cat-reel-miaou.png");
   background-size: 50%;
   background-repeat: no-repeat;
   background-position: center;
-  color: white;
-  margin-bottom: 3rem;
+  justify-content: flex-end;
+  padding: 0;
 }
 
-#try-again {
+#you-win-alert h2 {
+  color: white;
+  padding: 0;
+  font-size: 0.75rem;
+}
+
+#button-try-again button {
   width: 5rem;
   height: 2rem;
   font-size: 1rem;
-} */
+}

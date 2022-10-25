@@ -7,6 +7,7 @@ const purrSound = new Audio("./audios/cat-purring-68797.mp3");
 //TIMER & SCORE
 const score = document.getElementById("score-level-two");
 const timer = document.getElementById("timer-level-two");
+console.log(timer);
 //ANIMATIONS
 const runningImages = [];
 const jumpingImages = [];
@@ -30,11 +31,11 @@ let maxFrames = 26;
 // }
 
 window.onload = () => {
-  document.getElementById("level-two-screen").style.display = "none";
+  document.getElementById("level-one-screen").style.display = "none";
 
-  document.getElementById("start-button-level-two").onclick = () => {
+  document.getElementById("start-button-level-one").onclick = () => {
     document.getElementById("intro-screen").style.display = "none";
-    document.getElementById("level-two-screen").style.display = "flex";
+    document.getElementById("level-one-screen").style.display = "flex";
     const game = new Game();
     game.startGame();
   };
@@ -157,9 +158,9 @@ class Dog {
     this.canvas = canvas;
     this.x = this.canvas.width;
     // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
-    this.y = this.canvas.height - 100;
-    this.width = 100;
-    this.height = 100;
+    this.y = this.canvas.height - 150;
+    this.width = 150;
+    this.height = 150;
   }
   bottomEdge() {
     return this.y + this.height;
@@ -174,9 +175,7 @@ class Dog {
     return this.y;
   }
   draw() {
-    this.ctx.scale(-1, 1);
-    this.ctx.drawImage(this.image, -this.x, this.y, -this.width, this.height);
-    this.ctx.scale(-1, 1);
+    this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
   move() {
     this.x -= 10;
@@ -213,7 +212,7 @@ class Bug {
     this.ctx.scale(-1, 1);
   }
   move() {
-    this.x -= 18;
+    this.x -= 15;
   }
 }
 
@@ -242,17 +241,18 @@ class Game {
       //YOU WIN MODAL A AJOUTER
       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.frames++;
-      //DOGS & BUGS APPEAR
-      if (this.frames % 250 === 0) {
+      //DOGS & BUGS APPEARANCE
+      if (this.frames % 80 === 0) {
         this.dogs.push(new Dog(this.canvas, this.ctx));
-        this.bugs.push(new Bug(this.canvas, this.ctx));
       }
       this.dogs.forEach((dog) => {
         dog.image = document.getElementById(`dog${(this.frames % 21) + 1}`);
       });
+      if (this.frames % 50 === 0) {
+        this.bugs.push(new Bug(this.canvas, this.ctx));
+      }
       this.bugs.forEach((bug) => {
         bug.image = document.getElementById(`bug${this.frames % 14}`);
-        console.log(this.bugs[0].image.src);
       });
       //CAT RUN & JUMPS
       if (this.cat.state === "running") {
@@ -260,6 +260,7 @@ class Game {
       } else {
         this.cat.image = jumpingImages[this.frames % 26];
       }
+      console.log(this.cat.image);
       //CAT AND BACKGROUND APPEARANCE
       this.sky.draw();
       this.sky.move();
@@ -308,10 +309,10 @@ class Game {
   }
   checkCollision(dog, cat) {
     const isInX =
-      dog.rightEdge() - 10 >= cat.leftEdge() + 10 &&
+      dog.rightEdge() - 20 >= cat.leftEdge() + 20 &&
       dog.leftEdge() + 10 <= cat.rightEdge() - 10;
     const isInY =
-      dog.topEdge() + 10 <= cat.bottomEdge() - 10 &&
+      dog.topEdge() + 20 <= cat.bottomEdge() - 20 &&
       dog.bottomEdge() - 10 >= cat.topEdge() + 10;
     return isInX && isInY;
     // document.getElementById("audioLose").play();
