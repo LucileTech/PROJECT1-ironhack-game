@@ -134,7 +134,11 @@ canvas {
 }
 
 .score-and-timer h2 {
-  font-size: 1rem;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #start-button-level-one {
@@ -194,17 +198,21 @@ canvas {
   background-repeat: no-repeat;
   background-position: center;
   justify-content: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 0;
 }
 
 #you-win-alert h2 {
-  color: white;
+  color: black
   padding: 0;
   font-size: 0.75rem;
+  align-items: center;
+  justify-content: center;
 }
 
 #button-try-again button {
-  width: 5rem;
+  width: 8rem;
   height: 2rem;
-  font-size: 1rem;
+  font-size: 0.75rem;
 }

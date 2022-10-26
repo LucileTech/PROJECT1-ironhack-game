@@ -4,33 +4,66 @@ const gameOverSound = new Audio("./audios/angry-cat-meow-82091.mp3");
 //ajouter un son angryCatcrache
 const youWinSound = new Audio("./audios/cat-purr-meow-8327.mp3");
 const purrSound = new Audio("./audios/cat-purring-68797.mp3");
-//TIMER & SCORE
-const score = document.getElementById("score-level-two");
-const timer = document.getElementById("timer-level-two");
-console.log(timer);
+
 //ANIMATIONS
 const runningImages = [];
 const jumpingImages = [];
 const catJump = [];
 let maxFrames = 26;
 
-/////FONCTIONS
-/// TIME FUNCTIONS TRY ///
-// let counter = 0;
-// setInterval(() => {
-//   counter += 1;
-//   timer.innerText = counter;
-// }, 50);
+let timer;
+let timerAnnouncement;
+let counter = 0;
 
-// function timerFunction() {
-//   counter++;
-//   if (counter > 1000) stopGame();
-//   else {
+let score;
+let scoreAnnouncement;
+let counterScore = 0;
+
+let dialogYouWin = null;
+let dialogGameOver = null;
+
+function timerFunction(game) {
+  counter++;
+  if (counter > 1000) {
+    game.stopGame();
+    youWinSound.play();
+    purrSound.play();
+    dialogYouWin.showModal();
+    counter = 0;
+    counterScore = 0;
+  } else {
+    timer.innerHTML = counter;
+    // timerAnnouncement.innerHTML = counter;
+  }
+}
+
+// function checkEatBug(game) {
+//   counterScore++;
+
+// }
+
+// function countBugs(game) {
+
+//   if (counter > 100) {
+//     counterBugs++;
+//     game.stopGame();
+//     youWinSound.play();
+//     purrSound.play();
+//     dialogYouWin.showModal();
+//     counter = 0;
+//   } else {
 //     timer.innerHTML = counter;
+//     timerAnnouncement.innerHTML = counter;
 //   }
 // }
 
 window.onload = () => {
+  //TIMER & SCORE
+  timer = document.getElementById("timer-level-one");
+  timerAnnouncement = document.getElementById("time-counter");
+  score = document.getElementById("bugs-level-one");
+  scoreAnnouncement = document.getElementById("score-counter");
+
   document.getElementById("level-one-screen").style.display = "none";
 
   document.getElementById("start-button-level-one").onclick = () => {
@@ -67,7 +100,7 @@ class Cat {
     this.height = 150;
     this.x = 50;
     this.y = this.canvas.height - 160;
-    this.jumpAmount = 10;
+    this.jumpAmount = 25;
     this.gravity = 1;
   }
   bottomEdge() {
@@ -113,7 +146,7 @@ class Cat {
   jump(amount) {
     this.y -= this.jumpAmount;
     this.jumpAmount -= this.gravity;
-    this.state = "jumping";
+    // this.state = "jumping";
     if (this.y >= canvas.height - this.height) {
       this.y = canvas.height - this.height;
       this.isJumping = false;
@@ -235,10 +268,18 @@ class Game {
     this.createEventListeners();
   }
   startGame() {
+    dialogYouWin = document.getElementById("you-win-alert");
+    dialogGameOver = document.getElementById("game-over-alert");
     this.intervalId = setInterval(() => {
+      // if (timer === 1000) {
+      //   // this.stopGame();
+      //   // dialogYouWin.showModal();
+      //   // counter = 0;
+      //   // gameOverSound.play();
+      // }
       //GAME OVER MODAL
-      const dialogGameOver = document.getElementById("game-over-alert");
       //YOU WIN MODAL A AJOUTER
+      // const dialogYouWin = document.getElementById("you-win-alert");
       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.frames++;
       //DOGS & BUGS APPEARANCE
@@ -276,29 +317,42 @@ class Game {
         dog.draw();
         if (this.checkCollision(dog, this.cat)) {
           this.stopGame();
+          counter = -1;
           gameOverSound.play();
           dialogGameOver.showModal();
         }
         dog.move();
       }
+      //DUG COUNTER A IMPLEMENTER
+      for (const bug of this.bugs) {
+        bug.draw();
+        if (!bug.hit && this.checkEatBug(bug, this.cat)) {
+          counterScore++;
+          score.innerText = counterScore;
+          scoreAnnouncement.innerText = counterScore;
+          bug.hit = true;
+          let newBugArray = this.bugs.splice(this.bugs.indexOf(bug), 1);
+          return newBugArray;
+        }
+        bug.move();
+      }
+      //TIMER FONCTION CALL
+      timerFunction(this);
       // TRY AGAIN
       document.getElementById("try-again-button").onclick = () => {
         const game = new Game();
         game.startGame();
         dialogGameOver.close();
       };
+      // TRY AGAIN
+      document.getElementById("try-better-score-button").onclick = () => {
+        const game = new Game();
+        game.startGame();
+        dialogYouWin.close();
+      };
+
       ////////// IF LEVEL 2 // if (this.levelCount === 2)
-      //DUG COUNTER A IMPLEMENTER
-      for (const bug of this.bugs) {
-        bug.draw();
-        let counter = 0;
-        if (this.checkEatBug(bug, this.cat)) {
-          counter++;
-          score.innerText = counter;
-          console.log(counter);
-        }
-        bug.move();
-      }
+
       /////////// IF LEVEL 2 ///  if (this.frames === 1200) {
       //   this.changeLevel();
       // }
@@ -307,6 +361,12 @@ class Game {
   stopGame() {
     clearInterval(this.intervalId);
   }
+  youWinTheGame() {
+    dialogYouWin.showModal();
+    counter = 0;
+    gameOverSound.play();
+  }
+
   checkCollision(dog, cat) {
     const isInX =
       dog.rightEdge() - 20 >= cat.leftEdge() + 20 &&
@@ -318,16 +378,16 @@ class Game {
     // document.getElementById("audioLose").play();
   }
   checkEatBug(bug, cat) {
-    const isInX =
+    const isInXBug =
       bug.rightEdge() >= cat.leftEdge() && bug.leftEdge() <= cat.rightEdge();
-    const isInY =
+    const isInYBug =
       bug.topEdge() <= cat.bottomEdge() && bug.bottomEdge() >= cat.topEdge();
-    return isInX && isInY;
+    return isInXBug && isInYBug;
     // document.getElementById("audioLose").play();
   }
+
   createEventListeners() {
     document.addEventListener("keydown", (event) => {
-      // console.log(event.key)
       switch (event.key) {
         case "ArrowLeft":
           this.cat.moveLeft();
