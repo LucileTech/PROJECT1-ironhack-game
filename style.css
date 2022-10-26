@@ -8,6 +8,7 @@
   font-family: "Abril Fatface", cursive;
   font-size: 2rem;
   line-height: 2em;
+  box-sizing: border-box;
 }
 dialog::backdrop {
   backdrop-filter: blur(4px);
@@ -88,7 +89,7 @@ header {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .game-intro {
@@ -112,16 +113,19 @@ header {
 /* MIDDLE CANVAS */
 
 #game-board-level-one {
-  float: left;
+  /* float: left; */
   padding: 20px 0px;
   /* border: 1px solid black; */
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 }
 
 canvas {
   background-color: #636fa4;
+  width: 100%;
+  height: 100%;
 }
 
 /* RIGHT SCORE AND TIME */
@@ -204,7 +208,7 @@ canvas {
 }
 
 #you-win-alert h2 {
-  color: black
+  color: black;
   padding: 0;
   font-size: 0.75rem;
   align-items: center;

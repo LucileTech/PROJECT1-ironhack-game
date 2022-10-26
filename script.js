@@ -57,26 +57,26 @@ function timerFunction(game) {
 //   }
 // }
 
-window.onload = () => {
-  //TIMER & SCORE
-  timer = document.getElementById("timer-level-one");
-  timerAnnouncement = document.getElementById("time-counter");
-  score = document.getElementById("bugs-level-one");
-  scoreAnnouncement = document.getElementById("score-counter");
+// window.onload = () => {
+//TIMER & SCORE
+timer = document.getElementById("timer-level-one");
+timerAnnouncement = document.getElementById("time-counter");
+score = document.getElementById("bugs-level-one");
+scoreAnnouncement = document.getElementById("score-counter");
 
-  document.getElementById("level-one-screen").style.display = "none";
+// document.getElementById("level-one-screen").classList.add("hidden");
 
-  document.getElementById("start-button-level-one").onclick = () => {
-    document.getElementById("intro-screen").style.display = "none";
-    document.getElementById("level-one-screen").style.display = "flex";
-    const game = new Game();
-    game.startGame();
-  };
+document.getElementById("start-button-level-one").onclick = () => {
+  document.getElementById("intro-screen").classList.add("hidden");
+  document.getElementById("level-one-screen").classList.remove("hidden");
+  const game = new Game();
+  game.startGame();
 };
+// };
 
 function loadImages() {
   const numOfImgs = { running: 26, jumping: 26 };
-  for (key in numOfImgs) {
+  for (const key in numOfImgs) {
     for (let i = 1; i <= numOfImgs[key]; i++) {
       let cached = new Image();
       cached.src = `./catsprite/${key}${i}.png`;
@@ -280,6 +280,7 @@ class Game {
       //GAME OVER MODAL
       //YOU WIN MODAL A AJOUTER
       // const dialogYouWin = document.getElementById("you-win-alert");
+      // console.log(canvas.height, canvas.width);
       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.frames++;
       //DOGS & BUGS APPEARANCE
@@ -301,7 +302,7 @@ class Game {
       } else {
         this.cat.image = jumpingImages[this.frames % 26];
       }
-      console.log(this.cat.image);
+      // console.log(this.cat.image);
       //CAT AND BACKGROUND APPEARANCE
       this.sky.draw();
       this.sky.move();
@@ -410,7 +411,7 @@ class Game {
       }
     });
   }
-  //////////////////  IF LEVEL 2 ///  changeLevel() {
+  ////////////////  IF LEVEL 2 ///  changeLevel() {
   //   this.frames = 0;
   //   this.game;
   //   this.cat.x = 50;
