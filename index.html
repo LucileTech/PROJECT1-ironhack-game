@@ -18,6 +18,30 @@
           <button id="start-button-level-one">Start</button>
         </div>
       </section>
+      <footer>
+        <nav class="nav-bar">
+          <ul class="nav-bar-ul">
+            <li>
+              <a id="rulesLink" href="#">RULES</a>
+            </li>
+          </ul>
+        </nav>
+      </footer>
+    </section>
+    <!----------------------------  rules-screen  -->
+    <section id="rules-screen" class="hidden">
+      <div class="game-intro-rules">
+        <p>Use the arrows</p>
+        <div id="keyboard-arrows"></div>
+        <p>To avoid the monsters</p>
+        <p>And catch the maximum of bugs</p>
+        <p>Before the end of the countdown</p>
+      </div>
+      <section class="home-main-rules">
+        <div class="time-to-play-rules">
+          <button id="start-button-level-one-rules">Start</button>
+        </div>
+      </section>
     </section>
 
     <!----------------------------  LEVEL 2 GAME SCREEN -->
@@ -25,20 +49,22 @@
     <section id="level-one-screen" class="hidden">
       <!---- LEFT EXPLANATIONS -------->
       <div class="game-intro">
-        <p>Use the arrows</p>
+        <!-- <p>Use the arrows</p>
         <div id="keyboard-arrows"></div>
         <p>To</p>
         <p>Catch the bugs</p>
-        <p>Avoid the monsters</p>
-      </div>
-      <!---- MIDDLE CANVAS -------->
-      <div id="game-board-level-one">
-        <canvas id="canvas" width="1200" height="600"></canvas>
+        <p>Avoid the monsters</p> -->
       </div>
       <!---- RIGHT SCORE AND TIME -------->
       <div class="score-and-timer">
-        <h2>Timer: <span id="timer-level-one">0</span></h2>
-        <h2>Bugs: <span id="bugs-level-one">0</span></h2>
+        <h2>
+          Timer: <span id="timer-level-one">0</span> Bugs:
+          <span id="bugs-level-one">0</span>
+        </h2>
+      </div>
+      <!---- MIDDLE CANVAS -------->
+      <div id="game-board-level-one">
+        <canvas id="canvas" width="1000" height="500"></canvas>
       </div>
 
       <!-- GAME OVER MODAL -->
@@ -54,9 +80,9 @@
       <dialog id="you-win-alert">
         <div id="div-you-win-alert">
           <h2>
-            There is no more monsters, the cat is happy !
+            There is no more monsters and
             <br />
-            You catched
+            you catched
             <span id="score-counter">0</span>
             bugs
             <!-- in

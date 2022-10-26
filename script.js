@@ -1,26 +1,31 @@
-//////VARIABLES
 //AUDIO
 const gameOverSound = new Audio("./audios/angry-cat-meow-82091.mp3");
 //ajouter un son angryCatcrache
 const youWinSound = new Audio("./audios/cat-purr-meow-8327.mp3");
 const purrSound = new Audio("./audios/cat-purring-68797.mp3");
-
+//////VARIABLES
+let timer;
+let timerAnnouncement;
+let counter = 0;
+let score;
+let scoreAnnouncement;
+let counterScore = 0;
+let dialogYouWin = null;
+let dialogGameOver = null;
 //ANIMATIONS
 const runningImages = [];
 const jumpingImages = [];
 const catJump = [];
 let maxFrames = 26;
-
-let timer;
-let timerAnnouncement;
-let counter = 0;
-
-let score;
-let scoreAnnouncement;
-let counterScore = 0;
-
-let dialogYouWin = null;
-let dialogGameOver = null;
+//TIMER & SCORE
+timer = document.getElementById("timer-level-one");
+timerAnnouncement = document.getElementById("time-counter");
+score = document.getElementById("bugs-level-one");
+scoreAnnouncement = document.getElementById("score-counter");
+//VOLUME
+purrSound.volume = 1.0;
+youWinSound.volume = 1.0;
+gameOverSound.volume = 1.0;
 
 function timerFunction(game) {
   counter++;
@@ -33,41 +38,27 @@ function timerFunction(game) {
     counterScore = 0;
   } else {
     timer.innerHTML = counter;
-    // timerAnnouncement.innerHTML = counter;
   }
 }
 
-// function checkEatBug(game) {
-//   counterScore++;
-
-// }
-
-// function countBugs(game) {
-
-//   if (counter > 100) {
-//     counterBugs++;
-//     game.stopGame();
-//     youWinSound.play();
-//     purrSound.play();
-//     dialogYouWin.showModal();
-//     counter = 0;
-//   } else {
-//     timer.innerHTML = counter;
-//     timerAnnouncement.innerHTML = counter;
-//   }
-// }
-
-// window.onload = () => {
-//TIMER & SCORE
-timer = document.getElementById("timer-level-one");
-timerAnnouncement = document.getElementById("time-counter");
-score = document.getElementById("bugs-level-one");
-scoreAnnouncement = document.getElementById("score-counter");
+//INTRO BUTTONS
+document.getElementById("rulesLink").onclick = function () {
+  document.getElementById("intro-screen").classList.add("hidden");
+  document.getElementById("level-one-screen").classList.add("hidden");
+  document.getElementById("rules-screen").classList.remove("hidden");
+};
 
 // document.getElementById("level-one-screen").classList.add("hidden");
 
 document.getElementById("start-button-level-one").onclick = () => {
   document.getElementById("intro-screen").classList.add("hidden");
+  document.getElementById("level-one-screen").classList.remove("hidden");
+  const game = new Game();
+  game.startGame();
+};
+
+document.getElementById("start-button-level-one-rules").onclick = () => {
+  document.getElementById("rules-screen").classList.add("hidden");
   document.getElementById("level-one-screen").classList.remove("hidden");
   const game = new Game();
   game.startGame();
@@ -320,7 +311,7 @@ class Game {
           this.stopGame();
           counter = -1;
           gameOverSound.play();
-          dialogGameOver.showModal();
+          //GAME OVER A REMETTRE dialogGameOver.showModal();
         }
         dog.move();
       }

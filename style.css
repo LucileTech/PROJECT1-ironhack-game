@@ -28,16 +28,16 @@ body {
   background: linear-gradient(to right, #636fa4, #e8cbc0);
 }
 
+/* INTRODUCTION SCREEN */
+
 header {
   height: 5rem;
 }
 
 .title {
-  display: flex;
-  justify-content: center;
+  text-align: center;
+  font-size: calc(0.5rem + 5vw);
 }
-
-/* INTRODUCTION SCREEN */
 
 .intro-screen {
   width: 100vw;
@@ -46,7 +46,8 @@ header {
   display: flex;
   flex-direction: column;
 }
-.home-main {
+.home-main,
+.home-main-rules {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -62,10 +63,9 @@ header {
   height: 77%;
   width: 35%;
   background-image: url("./images/cat-button.png");
-  background-size: 50%;
+  background-size: 90%;
   background-repeat: no-repeat;
   background-position: center;
-  color: white;
 }
 
 #start {
@@ -77,7 +77,79 @@ header {
   align-items: center;
 }
 
-/*       LEVEL 2 GAME SCREEN */
+#start-button-level-one #start-button-level-one-rules {
+  font-size: calc(0.5rem + 5vw);
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: black;
+  padding: 0.1rem 0.5rem;
+}
+
+.nav-bar-ul {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 0.75rem;
+  list-style: none;
+}
+
+/*  RULES SCREEN  */
+
+#rules-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  text-align: center;
+  justify-content: space-around;
+}
+
+#rules-screen p {
+  font-size: 1rem;
+}
+
+#keyboard-arrows {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 7rem;
+  background-image: url("./images/arrows-keyboard.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.time-to-play-rules {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 10rem;
+  width: 10rem;
+  background-image: url("./images/cat-button.png");
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+}
+
+#start-button-level-one-rules {
+  font-size: calc(0.5rem + 5vw);
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: transparent;
+  /* background-image: url("./images/catfootprint.png");
+  background-size: contain; */
+  padding: 0.1rem 0.5rem;
+}
+
+/*       LEVEL 1 GAME SCREEN */
 
 /* LEFT EXPLANATIONS */
 
@@ -86,13 +158,13 @@ header {
   height: 100vh;
   border: 1px solid black;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   flex-wrap: nowrap;
 }
 
-.game-intro {
+.game-intro .game-intro-rules {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -103,23 +175,16 @@ header {
   font-size: 1rem;
 }
 
-#keyboard-arrows {
-  width: 10rem;
-  height: 10rem;
-  background-image: url("./images/arrows-keyboard.png");
-  background-size: contain;
-}
-
 /* MIDDLE CANVAS */
 
 #game-board-level-one {
   /* float: left; */
-  padding: 20px 0px;
   /* border: 1px solid black; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  margin: 3rem;
 }
 
 canvas {
@@ -131,28 +196,21 @@ canvas {
 /* RIGHT SCORE AND TIME */
 
 .score-and-timer {
+  width: 60%;
+  height: 15%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
+  padding: 1rem;
 }
 
 .score-and-timer h2 {
-  font-size: 2rem;
+  font-size: calc(0.1rem + 1.5vw);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
-}
-
-#start-button-level-one {
-  width: 6rem;
-  height: 3rem;
-  font-size: 0.75rem;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background-color: black;
 }
 
 #running1 {
