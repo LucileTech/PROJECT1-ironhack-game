@@ -400,6 +400,12 @@ class Game {
           break;
       }
     });
+    document.addEventListener("touchstart", () => {
+      if (this.cat.isJumping) return;
+      this.cat.isJumping = true;
+      this.cat.state = "jumping";
+      this.frames = 0;
+    });
   }
   ////////////////  IF LEVEL 2 ///  changeLevel() {
   //   this.frames = 0;
