@@ -105,6 +105,8 @@ header {
   color: #b5b9bb;
   background-color: black;
   padding: 0.1rem 0.5rem;
+  border: none;
+  cursor: pointer;
 }
 
 .nav-bar-ul {
@@ -257,6 +259,8 @@ a:active {
   background-color: black;
   padding: 0.1rem 0.5rem;
   margin: 1rem;
+  border: none;
+  cursor: pointer;
 }
 
 .home-main-rules {
@@ -379,6 +383,14 @@ button:focus {
 }
 
 #button-try-again button {
+  font-size: 0.75rem;
+  background-color: black;
+  color: #b5b9bb;
+  border-color: #b5b9bb;
+  padding: 0.5rem;
+}
+
+#button-level-up button {
   font-size: 0.75rem;
   background-color: black;
   color: #b5b9bb;

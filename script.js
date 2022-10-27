@@ -10,10 +10,12 @@ let counter = 1000;
 let score;
 let scoreAnnouncement;
 let counterScore = 0;
+let levelCount = 1;
 let dialogYouWin = null;
 let dialogGameOver = null;
 let dogAppearances = Math.floor(Math.random() * (90 - 70 + 1) + 70);
 let bugsAppearances = Math.floor(Math.random() * (60 - 40 + 1) + 40);
+let beesAppearances = Math.floor(Math.random() * (100 - 45 + 1) + 45);
 //ANIMATIONS
 const runningImages = [];
 const jumpingImages = [];
@@ -29,14 +31,11 @@ purrSound.volume = 1.0;
 youWinSound.volume = 1.0;
 gameOverSound.volume = 1.0;
 
-console.log(counterScore);
-console.log(scoreAnnouncement.innerText);
 function timerFunction(game) {
   counter--;
   if (counter === -1) {
     game.stopGame();
     youWinSound.play();
-    purrSound.play();
     dialogYouWin.showModal();
     counter = 1000;
     counterScore = 0;
@@ -250,6 +249,78 @@ class Bug {
   }
 }
 
+class Bee {
+  constructor(canvas, ctx) {
+    this.image = new Image();
+    this.image.src = "./images/bee0.png";
+    this.ctx = ctx;
+    this.canvas = canvas;
+    this.x = this.canvas.width;
+    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
+    this.y = this.canvas.height - 400;
+    this.width = 50;
+    this.height = 50;
+    // this.speed = Math.random() * 8 + 1;
+    this.angle = Math.random() * 2;
+    this.angleSpeed = Math.random() * 0.2;
+    this.curve = Math.floor(Math.random() * (5 - 2 + 1) + 2);
+  }
+  bottomEdge() {
+    return this.y + this.height;
+  }
+  leftEdge() {
+    return this.x;
+  }
+  rightEdge() {
+    return this.x + this.width;
+  }
+  topEdge() {
+    return this.y;
+  }
+  draw() {
+    this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+  }
+  move() {
+    this.x -= 18;
+    this.y += this.curve * Math.sin(this.angle);
+    this.angle += this.angleSpeed;
+    // if (this.x + this.width < 0) this.x = canvas.width;
+  }
+}
+
+class Grass {
+  constructor(canvas, ctx) {
+    this.image = new Image();
+    this.image.src = "./images/grass2.png";
+    this.ctx = ctx;
+    this.canvas = canvas;
+    this.x = this.canvas.width;
+    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
+    this.y = this.canvas.height - 150;
+    this.width = 200;
+    this.height = 200;
+    this.speed = Math.floor(Math.random() * (13 - 10 + 1) + 10);
+  }
+  bottomEdge() {
+    return this.y + this.height;
+  }
+  leftEdge() {
+    return this.x;
+  }
+  rightEdge() {
+    return this.x + this.width;
+  }
+  topEdge() {
+    return this.y;
+  }
+  draw() {
+    this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+  }
+  move() {
+    this.x -= this.speed;
+  }
+}
+
 class Game {
   constructor() {
     this.canvas = null;
@@ -261,7 +332,8 @@ class Game {
     this.frames = 0;
     this.dogs = [];
     this.bugs = [];
-    this.levelCount = 1;
+    this.bees = [];
+    // this.levelCount = 1;
   }
   init() {
     this.canvas = document.getElementById("canvas");
@@ -330,7 +402,6 @@ class Game {
           let newBugArray = this.bugs.splice(this.bugs.indexOf(bug), 1);
           return newBugArray;
         }
-        console.log(counterScore);
         bug.move();
       }
       //TIMER FONCTION CALL
@@ -346,11 +417,60 @@ class Game {
         const game = new Game();
         game.startGame();
         dialogYouWin.close();
-        purrSound.stop();
       };
-
-      ////////// IF LEVEL 2 // if (this.levelCount === 2)
-
+      //LEVEL 2//
+      document.getElementById("level-up-button").onclick = () => {
+        levelCount = 2;
+        const game = new Game();
+        game.startGame();
+        dialogYouWin.close();
+      };
+      console.log(levelCount);
+      ///////////
+      //////////
+      if (levelCount === 2) {
+        if (this.frames % beesAppearances === 0) {
+          this.bees.push(new Bee(this.canvas, this.ctx));
+        }
+        this.bees.forEach((bee) => {
+          bee.image = document.getElementById(`bee${this.frames % 12}`);
+        });
+        for (const bee of this.bees) {
+          bee.draw();
+          if (this.checkCollisionBee(bee, this.cat)) {
+            this.stopGame();
+            counter = 1001;
+            counterScore = 0;
+            score.innerText = 0;
+            scoreAnnouncement.textContent = 0;
+            gameOverSound.play();
+            //GAME OVER A REMETTRE
+            dialogGameOver.showModal();
+          }
+          bee.move();
+        }
+        if (this.frames % beesAppearances === 0) {
+          this.bees.push(new Bee(this.canvas, this.ctx));
+        }
+        this.bees.forEach((bee) => {
+          bee.image = document.getElementById(`bee${this.frames % 12}`);
+        });
+        for (const bee of this.bees) {
+          bee.draw();
+          if (this.checkCollisionBee(bee, this.cat)) {
+            this.stopGame();
+            counter = 1001;
+            counterScore = 0;
+            score.innerText = 0;
+            scoreAnnouncement.textContent = 0;
+            gameOverSound.play();
+            //GAME OVER A REMETTRE
+            dialogGameOver.showModal();
+          }
+          bee.move();
+        }
+      }
+      //////////
       /////////// IF LEVEL 2 ///  if (this.frames === 1200) {
       //   this.changeLevel();
       // }
@@ -375,6 +495,16 @@ class Game {
     const isInYBug =
       bug.topEdge() <= cat.bottomEdge() && bug.bottomEdge() >= cat.topEdge();
     return isInXBug && isInYBug;
+  }
+
+  checkCollisionBee(bee, cat) {
+    const isInXBee =
+      bee.rightEdge() - 20 >= cat.leftEdge() + 20 &&
+      bee.leftEdge() + 10 <= cat.rightEdge() - 10;
+    const isInYBee =
+      bee.topEdge() + 20 <= cat.bottomEdge() - 20 &&
+      bee.bottomEdge() - 10 >= cat.topEdge() + 10;
+    return isInXBee && isInYBee;
   }
 
   createEventListeners() {
