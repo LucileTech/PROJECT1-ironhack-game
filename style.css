@@ -151,23 +151,62 @@ a:active {
   justify-content: space-around;
 }
 
+.the-cat-rules {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#left-cat-in-the-rules {
+  height: 7rem;
+  width: 7rem;
+  background-image: url("./catsprite/walking4.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .the-monster-rules {
-  /* height: 4rem;
-  width: 4rem; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  row-gap: 0.25rem;
+}
+
+.the-monster-rules h3 {
+  font-size: 0.75rem;
+}
+
+#right-cat-in-the-rules {
+  height: 4rem;
+  width: 4rem;
+  background-image: url("./catsprite/jumping2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 #bug-in-the-rules {
-  height: 100px;
-  width: 100px;
+  height: 3rem;
+  width: 3rem;
   background-image: url("./images/skeleton-animation_2.png");
   background-size: contain;
   background-repeat: no-repeat;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 #monster-in-the-rules {
-  height: 100px;
-  width: 100px;
-  background-image: url("./images/skeleton-animation_14.png");
+  height: 3rem;
+  width: 3rem;
+  background-image: url("./images/dog-run-3.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -180,7 +219,7 @@ a:active {
 }
 
 #rules-screen p {
-  font-size: 1rem;
+  font-size: calc(0.19rem + 3vw);
 }
 
 #keyboard-arrows {
@@ -386,6 +425,14 @@ button:focus {
   }
 
   .the-cat {
+    display: none;
+  }
+
+  .the-cat-rules {
+    display: none;
+  }
+
+  .the-monster-rules {
     display: none;
   }
 }
