@@ -16,6 +16,7 @@ let dialogGameOver = null;
 let dogAppearances = Math.floor(Math.random() * (90 - 70 + 1) + 70);
 let bugsAppearances = Math.floor(Math.random() * (60 - 40 + 1) + 40);
 let beesAppearances = Math.floor(Math.random() * (100 - 45 + 1) + 45);
+let redbugsAppearances = Math.floor(Math.random() * (110 - 90 + 1) + 90);
 //ANIMATIONS
 const runningImages = [];
 const jumpingImages = [];
@@ -252,53 +253,14 @@ class Bug {
 class Bee {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "./images/bee0.png";
-    this.ctx = ctx;
-    this.canvas = canvas;
-    this.x = this.canvas.width;
-    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
-    this.y = this.canvas.height - 400;
-    this.width = 50;
-    this.height = 50;
-    // this.speed = Math.random() * 8 + 1;
-    this.angle = Math.random() * 2;
-    this.angleSpeed = Math.random() * 0.2;
-    this.curve = Math.floor(Math.random() * (5 - 2 + 1) + 2);
-  }
-  bottomEdge() {
-    return this.y + this.height;
-  }
-  leftEdge() {
-    return this.x;
-  }
-  rightEdge() {
-    return this.x + this.width;
-  }
-  topEdge() {
-    return this.y;
-  }
-  draw() {
-    this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-  }
-  move() {
-    this.x -= 18;
-    this.y += this.curve * Math.sin(this.angle);
-    this.angle += this.angleSpeed;
-    // if (this.x + this.width < 0) this.x = canvas.width;
-  }
-}
-
-class Grass {
-  constructor(canvas, ctx) {
-    this.image = new Image();
-    this.image.src = "./images/grass2.png";
+    this.image.src = "./images/grass3.png";
     this.ctx = ctx;
     this.canvas = canvas;
     this.x = this.canvas.width;
     // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
     this.y = this.canvas.height - 150;
-    this.width = 200;
-    this.height = 200;
+    this.width = 150;
+    this.height = 150;
     this.speed = Math.floor(Math.random() * (13 - 10 + 1) + 10);
   }
   bottomEdge() {
@@ -321,6 +283,47 @@ class Grass {
   }
 }
 
+class Redbug {
+  constructor(canvas, ctx) {
+    this.image = new Image();
+    this.image.src = "./images/skeleton-animation_0.png";
+    this.ctx = ctx;
+    this.canvas = canvas;
+    this.x = this.canvas.width;
+    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
+    this.y = this.canvas.height - 400;
+    this.width = 50;
+    this.height = 50;
+    // this.speed = Math.random() * 8 + 1;
+    this.angle = Math.random() * 2;
+    this.angleSpeed = Math.random() * 0.2;
+    this.curve = Math.floor(Math.random() * (7 - 4 + 1) + 4);
+  }
+  bottomEdge() {
+    return this.y + this.height;
+  }
+  leftEdge() {
+    return this.x;
+  }
+  rightEdge() {
+    return this.x + this.width;
+  }
+  topEdge() {
+    return this.y;
+  }
+  draw() {
+    this.ctx.scale(-1, 1);
+    this.ctx.drawImage(this.image, -this.x, this.y, -this.width, this.height);
+    this.ctx.scale(-1, 1);
+  }
+  move() {
+    this.x -= 18;
+    this.y += this.curve * Math.sin(this.angle);
+    this.angle += this.angleSpeed;
+    // if (this.x + this.width < 0) this.x = canvas.width;
+  }
+}
+
 class Game {
   constructor() {
     this.canvas = null;
@@ -333,6 +336,7 @@ class Game {
     this.dogs = [];
     this.bugs = [];
     this.bees = [];
+    this.redbugs = [];
     // this.levelCount = 1;
   }
   init() {
@@ -347,12 +351,14 @@ class Game {
       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.frames++;
       //DOGS & BUGS APPEARANCE
-      if (this.frames % dogAppearances === 0) {
-        this.dogs.push(new Dog(this.canvas, this.ctx));
+      if (levelCount === 1) {
+        if (this.frames % dogAppearances === 0) {
+          this.dogs.push(new Dog(this.canvas, this.ctx));
+        }
+        this.dogs.forEach((dog) => {
+          dog.image = document.getElementById(`dog${(this.frames % 21) + 1}`);
+        });
       }
-      this.dogs.forEach((dog) => {
-        dog.image = document.getElementById(`dog${(this.frames % 21) + 1}`);
-      });
       if (this.frames % bugsAppearances === 0) {
         this.bugs.push(new Bug(this.canvas, this.ctx));
       }
@@ -377,21 +383,23 @@ class Game {
       }
       ////////////// if LEVEL 2 // (this.levelCount === 1)
       //DOG APPEARANCE AND GAME OVER
-      for (const dog of this.dogs) {
-        dog.draw();
-        if (this.checkCollision(dog, this.cat)) {
-          this.stopGame();
-          counter = 1001;
-          counterScore = 0;
-          score.innerText = 0;
-          scoreAnnouncement.textContent = 0;
-          gameOverSound.play();
-          //GAME OVER A REMETTRE
-          dialogGameOver.showModal();
+      if (levelCount === 1) {
+        for (const dog of this.dogs) {
+          dog.draw();
+          if (this.checkCollision(dog, this.cat)) {
+            this.stopGame();
+            counter = 1001;
+            counterScore = 0;
+            score.innerText = 0;
+            scoreAnnouncement.textContent = 0;
+            gameOverSound.play();
+            //GAME OVER A REMETTRE
+            dialogGameOver.showModal();
+          }
+          dog.move();
         }
-        dog.move();
       }
-      //DUG COUNTER A IMPLEMENTER
+      //BUG
       for (const bug of this.bugs) {
         bug.draw();
         if (!bug.hit && this.checkEatBug(bug, this.cat)) {
@@ -426,6 +434,10 @@ class Game {
         dialogYouWin.close();
       };
       console.log(levelCount);
+
+      if (levelCount === 2) {
+        document.getElementById("level-up-button").style.display = "none";
+      }
       ///////////
       //////////
       if (levelCount === 2) {
@@ -449,25 +461,28 @@ class Game {
           }
           bee.move();
         }
-        if (this.frames % beesAppearances === 0) {
-          this.bees.push(new Bee(this.canvas, this.ctx));
+        if (this.frames % redbugsAppearances === 0) {
+          this.redbugs.push(new Redbug(this.canvas, this.ctx));
         }
-        this.bees.forEach((bee) => {
-          bee.image = document.getElementById(`bee${this.frames % 12}`);
+        this.redbugs.forEach((redbug) => {
+          redbug.image = document.getElementById(
+            `redbug${(this.frames % 13) + 1}`
+          );
         });
-        for (const bee of this.bees) {
-          bee.draw();
-          if (this.checkCollisionBee(bee, this.cat)) {
-            this.stopGame();
-            counter = 1001;
-            counterScore = 0;
-            score.innerText = 0;
-            scoreAnnouncement.textContent = 0;
-            gameOverSound.play();
-            //GAME OVER A REMETTRE
-            dialogGameOver.showModal();
+        for (const redbug of this.redbugs) {
+          redbug.draw();
+          if (!redbug.hit && this.checkEatRedBug(redbug, this.cat)) {
+            counterScore++;
+            score.innerText = counterScore;
+            scoreAnnouncement.innerText = counterScore;
+            redbug.hit = true;
+            let newRedBugArray = this.redbugs.splice(
+              this.redbugs.indexOf(redbug),
+              1
+            );
+            return newRedBugArray;
           }
-          bee.move();
+          redbug.move();
         }
       }
       //////////
@@ -483,10 +498,10 @@ class Game {
   checkCollision(dog, cat) {
     const isInX =
       dog.rightEdge() - 20 >= cat.leftEdge() + 20 &&
-      dog.leftEdge() + 10 <= cat.rightEdge() - 10;
+      dog.leftEdge() + 20 <= cat.rightEdge() - 20;
     const isInY =
       dog.topEdge() + 20 <= cat.bottomEdge() - 20 &&
-      dog.bottomEdge() - 10 >= cat.topEdge() + 10;
+      dog.bottomEdge() - 20 >= cat.topEdge() + 20;
     return isInX && isInY;
   }
   checkEatBug(bug, cat) {
@@ -499,12 +514,22 @@ class Game {
 
   checkCollisionBee(bee, cat) {
     const isInXBee =
-      bee.rightEdge() - 20 >= cat.leftEdge() + 20 &&
-      bee.leftEdge() + 10 <= cat.rightEdge() - 10;
+      bee.rightEdge() - 30 >= cat.leftEdge() + 30 &&
+      bee.leftEdge() + 30 <= cat.rightEdge() - 30;
     const isInYBee =
-      bee.topEdge() + 20 <= cat.bottomEdge() - 20 &&
-      bee.bottomEdge() - 10 >= cat.topEdge() + 10;
+      bee.topEdge() + 30 <= cat.bottomEdge() - 30 &&
+      bee.bottomEdge() - 30 >= cat.topEdge() + 30;
     return isInXBee && isInYBee;
+  }
+
+  checkEatRedBug(redbug, cat) {
+    const isInXRedbug =
+      redbug.rightEdge() - 20 >= cat.leftEdge() + 20 &&
+      redbug.leftEdge() + 10 <= cat.rightEdge() - 10;
+    const isInYRedbug =
+      redbug.topEdge() + 20 <= cat.bottomEdge() - 20 &&
+      redbug.bottomEdge() - 10 >= cat.topEdge() + 10;
+    return isInXRedbug && isInYRedbug;
   }
 
   createEventListeners() {

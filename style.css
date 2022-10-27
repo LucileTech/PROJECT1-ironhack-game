@@ -18,18 +18,23 @@ dialog::backdrop {
 }
 
 body {
-  background: #606c88; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
+  /* background: #606c88; /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(
     to left,
     #3f4c6b,
     #606c88
   ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
+  /* background: linear-gradient(
     to left,
     #3f4c6b,
     #606c88
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+  ); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+  */
+  background: rgb(118, 130, 158);
+  background: linear-gradient(
+    151deg,
+    rgba(118, 130, 158, 1) 0%,
+    rgba(20, 31, 59, 1) 88%
+  );
   /* cursor: url("./images/catfootprint.png"), auto; */
 }
 
