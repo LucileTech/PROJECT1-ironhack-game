@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Open+Sans:wght@300&display=swap");
 
 /* ALL PAGES */
 
@@ -6,8 +6,10 @@
   padding: 0;
   margin: 0;
   font-family: "Abril Fatface", cursive;
+  font-family: "Open Sans", sans-serif;
   box-sizing: border-box;
   flex-wrap: nowrap;
+  color: #b5b9bb;
 }
 dialog::backdrop {
   backdrop-filter: blur(4px);
@@ -30,11 +32,11 @@ body {
     #606c88
   ); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+  */
   background: rgb(118, 130, 158);
-  background: linear-gradient(
-    151deg,
-    rgba(118, 130, 158, 1) 0%,
-    rgba(20, 31, 59, 1) 88%
-  );
+  background: url("./images/backgroundFOREST.svg"),
+    linear-gradient(151deg, rgba(118, 130, 158, 1) 0%, rgba(20, 31, 59, 1) 88%);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
   /* cursor: url("./images/catfootprint.png"), auto; */
 }
 
@@ -47,6 +49,8 @@ header {
 .title {
   text-align: center;
   font-size: calc(0.5rem + 5vw);
+  padding: 1rem;
+  margin-top: 0.3rem;
 }
 
 .intro-screen {
@@ -85,13 +89,18 @@ header {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 77%;
-  width: 35%;
+  height: 70%;
+  width: 30%;
   background-image: url("./images/cat-button.png");
   background-size: 90%;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  transition: 0.5s;
+}
+
+.time-to-play:hover {
+  transform: scale(0.7);
 }
 
 #start {
@@ -125,12 +134,13 @@ header {
 
 /* unvisited link */
 a:link {
-  color: black;
+  color: #b5b9bb;
+  transition: O.5s;
 }
 
 /* visited link */
 a:visited {
-  color: #1a2338;
+  color: #b5b9bb;
 }
 
 /* mouse over link */
@@ -140,7 +150,7 @@ a:hover {
 
 /* selected link */
 a:active {
-  color: #1d2b64;
+  color: #b5b9bb;
 }
 
 /*  RULES SCREEN  */
@@ -165,8 +175,8 @@ a:active {
 }
 
 #left-cat-in-the-rules {
-  height: 7rem;
-  width: 7rem;
+  height: 10rem;
+  width: 10rem;
   background-image: url("./catsprite/walking4.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -189,8 +199,8 @@ a:active {
 }
 
 #right-cat-in-the-rules {
-  height: 4rem;
-  width: 4rem;
+  height: 5rem;
+  width: 5rem;
   background-image: url("./catsprite/jumping2.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -210,10 +220,29 @@ a:active {
   text-align: center;
 }
 
+#redbug-in-the-rules {
+  height: 3rem;
+  width: 3rem;
+  background-image: url("./images/redbug10.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 #monster-in-the-rules {
   height: 3rem;
   width: 3rem;
   background-image: url("./images/dog-run-3.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#bee-in-the-rules {
+  height: 3rem;
+  width: 3rem;
+  background-image: url("./images/bee0.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -226,7 +255,9 @@ a:active {
 }
 
 #rules-screen p {
-  font-size: calc(0.19rem + 3vw);
+  font-size: calc(0.19rem + 2.5vw);
+  color: #b5b9bb;
+  font-weight: 400;
 }
 
 #keyboard-arrows {
@@ -252,7 +283,12 @@ a:active {
   background-size: 90%;
   background-repeat: no-repeat;
   background-position: center;
-  color: white;
+  color: #b5b9bb;
+  transition: 0.5s;
+}
+
+.time-to-play-rules:hover {
+  transform: scale(0.7);
 }
 
 #start-button-level-one-rules {
@@ -342,7 +378,10 @@ canvas {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  padding: 1rem;
+  /* padding: 1rem; */
+  background-color: black;
+  padding-left: 1rem;
+  padding-right: 0.2rem;
 }
 
 .score-and-timer span {
