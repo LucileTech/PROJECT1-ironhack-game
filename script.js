@@ -1,6 +1,5 @@
 //AUDIO
 const gameOverSound = new Audio("./audios/angry-cat-meow-82091.mp3");
-//ajouter un son angryCatcrache
 const youWinSound = new Audio("./audios/cat-purr-meow-8327.mp3");
 const purrSound = new Audio("./audios/cat-purring-68797.mp3");
 //////VARIABLES
@@ -45,7 +44,6 @@ function timerFunction(game) {
     timer.innerHTML = counter;
   }
 }
-
 //INTRO RULES LINK
 document.getElementById("rulesLink").onclick = function () {
   document.getElementById("intro-screen").classList.add("hidden");
@@ -183,7 +181,6 @@ class Dog {
     this.ctx = ctx;
     this.canvas = canvas;
     this.x = this.canvas.width;
-    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
     this.y = this.canvas.height - 150;
     this.width = 150;
     this.height = 150;
@@ -216,11 +213,9 @@ class Bug {
     this.ctx = ctx;
     this.canvas = canvas;
     this.x = this.canvas.width;
-    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
     this.y = this.canvas.height - 400;
     this.width = 50;
     this.height = 50;
-    // this.speed = Math.random() * 8 + 1;
     this.angle = Math.random() * 2;
     this.angleSpeed = Math.random() * 0.2;
     this.curve = Math.floor(Math.random() * (7 - 4 + 1) + 4);
@@ -246,7 +241,6 @@ class Bug {
     this.x -= 18;
     this.y += this.curve * Math.sin(this.angle);
     this.angle += this.angleSpeed;
-    // if (this.x + this.width < 0) this.x = canvas.width;
   }
 }
 
@@ -257,7 +251,6 @@ class Bee {
     this.ctx = ctx;
     this.canvas = canvas;
     this.x = this.canvas.width;
-    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
     this.y = this.canvas.height - 150;
     this.width = 150;
     this.height = 150;
@@ -290,11 +283,9 @@ class Redbug {
     this.ctx = ctx;
     this.canvas = canvas;
     this.x = this.canvas.width;
-    // this.y = Math.floor(Math.random() * (this.canvas.width / 2)) + 20;
     this.y = this.canvas.height - 400;
     this.width = 50;
     this.height = 50;
-    // this.speed = Math.random() * 8 + 1;
     this.angle = Math.random() * 2;
     this.angleSpeed = Math.random() * 0.2;
     this.curve = Math.floor(Math.random() * (7 - 4 + 1) + 4);
@@ -320,7 +311,6 @@ class Redbug {
     this.x -= 18;
     this.y += this.curve * Math.sin(this.angle);
     this.angle += this.angleSpeed;
-    // if (this.x + this.width < 0) this.x = canvas.width;
   }
 }
 
@@ -337,7 +327,6 @@ class Game {
     this.bugs = [];
     this.bees = [];
     this.redbugs = [];
-    // this.levelCount = 1;
   }
   init() {
     this.canvas = document.getElementById("canvas");
@@ -371,7 +360,6 @@ class Game {
       } else {
         this.cat.image = jumpingImages[this.frames % 51];
       }
-      // console.log(this.cat.image);
       //CAT AND BACKGROUND APPEARANCE
       this.sky.draw();
       this.sky.move();
@@ -381,7 +369,6 @@ class Game {
         this.frames %= maxFrames;
         this.cat.jump(this.cat.jumpAmount);
       }
-      ////////////// if LEVEL 2 // (this.levelCount === 1)
       //DOG APPEARANCE AND GAME OVER
       if (levelCount === 1) {
         for (const dog of this.dogs) {
@@ -393,7 +380,6 @@ class Game {
             score.innerText = 0;
             scoreAnnouncement.textContent = 0;
             gameOverSound.play();
-            //GAME OVER A REMETTRE
             dialogGameOver.showModal();
           }
           dog.move();
@@ -438,8 +424,6 @@ class Game {
       if (levelCount === 2) {
         document.getElementById("level-up-button").style.display = "none";
       }
-      ///////////
-      //////////
       if (levelCount === 2) {
         if (this.frames % beesAppearances === 0) {
           this.bees.push(new Bee(this.canvas, this.ctx));
@@ -456,7 +440,6 @@ class Game {
             score.innerText = 0;
             scoreAnnouncement.textContent = 0;
             gameOverSound.play();
-            //GAME OVER A REMETTRE
             dialogGameOver.showModal();
           }
           bee.move();
@@ -485,10 +468,6 @@ class Game {
           redbug.move();
         }
       }
-      //////////
-      /////////// IF LEVEL 2 ///  if (this.frames === 1200) {
-      //   this.changeLevel();
-      // }
     }, 1000 / 60);
   }
   stopGame() {
@@ -562,13 +541,4 @@ class Game {
       this.frames = 0;
     });
   }
-  ////////////////  IF LEVEL 2 ///  changeLevel() {
-  //   this.frames = 0;
-  //   this.game;
-  //   this.cat.x = 50;
-  //   this.cat.y = this.canvas.height - 160;
-  //   this.dogs = [];
-  //   this.bugs = [];
-  //   this.levelCount++;
-  // }
 }
