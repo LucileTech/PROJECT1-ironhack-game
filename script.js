@@ -27,9 +27,9 @@ timerAnnouncement = document.getElementById("time-counter");
 score = document.getElementById("bugs-level-one");
 scoreAnnouncement = document.getElementById("score-counter");
 //VOLUME
-purrSound.volume = 1.0;
-youWinSound.volume = 1.0;
-gameOverSound.volume = 1.0;
+purrSound.volume = 0.02;
+youWinSound.volume = 0.02;
+gameOverSound.volume = 0.02;
 
 function timerFunction(game) {
   counter--;
@@ -177,7 +177,7 @@ class Sky {
 class Dog {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "./images/dog3.png";
+    this.image.src = "./images/dog-run-3.png";
     this.ctx = ctx;
     this.canvas = canvas;
     this.x = this.canvas.width;
@@ -247,7 +247,7 @@ class Bug {
 class Bee {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "./images/grass3.png";
+    this.image.src = "./images/bee11.png";
     this.ctx = ctx;
     this.canvas = canvas;
     this.x = this.canvas.width;
