@@ -25,3 +25,5 @@ It seemed to have a lot of things going on in order to practice : DOM, array man
 - Clean my code and structure it with different JS files.
 
 ## [Link to test the game](https://luciletech.github.io/the-cat-and-the-fantastic-forest/)
+
+![My Remote Image](https://res.cloudinary.com/dsioshcio/image/upload/v1670761339/Screenshot_2022-12-11_at_13.17.46_ofvrhi.png)
